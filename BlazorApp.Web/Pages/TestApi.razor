@@ -1,0 +1,23 @@
+﻿@page "/testapi"
+@using BlazorApp.Data.Service
+@inject IHelloService HelloService
+
+<h4>Тянем api</h4>
+
+<button @onclick=@(async () =>  await GetTest())>Get from API</button>
+
+
+
+<input type="text" @bind="message" />
+
+@code {
+    string message = "";
+
+    protected async Task GetTest()
+    {
+        //message += "test";
+        message =  HelloService.GetTest();
+
+    }
+
+}
