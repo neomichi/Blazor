@@ -1,11 +1,18 @@
 ﻿@page "/testapi"
+@page "/testapi/{text}"
+
+<h1>Blazor is @Text!</h1>
+
+
+
+
 @using BlazorApp.Data.Service
-@inject IHelloService HelloService
+@inject ITestService testService
 
 <h4>Тянем api</h4>
 
-<button @onclick=@(async () =>  await GetTest())>Get from API</button>
-
+<button @onclick=@(() => GetTest1())>Get text</button>
+<button @onclick=@(async () =>  await GetTest2())>Get from API</button>
 
 
 <input type="text" @bind="message" />
@@ -13,11 +20,19 @@
 @code {
     string message = "";
 
-    protected async Task GetTest()
+    void GetTest1()
     {
         //message += "test";
-        message =  HelloService.GetTest();
+        message = testService.GetTest1();
 
     }
 
+    async Task GetTest2()
+    {
+        message = await testService.GetTest2();
+    }
+}
+@functions {
+    [Parameter]
+    public string Text { get; set; } = "awesome";
 }

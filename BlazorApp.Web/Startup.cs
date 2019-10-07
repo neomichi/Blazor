@@ -16,6 +16,7 @@ using BlazorApp.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BlazorApp.Data.Services;
+using System.Net.Http;
 
 namespace BlazorApp.Web
 {
@@ -40,12 +41,27 @@ namespace BlazorApp.Web
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<MyDbContext>()                
                 .AddDefaultTokenProviders();
+            //services.AddTransient<UserManager<ApplicationUser>>();
+            //services.AddTransient<RoleManager<ApplicationUser>>();
+            //services.AddTransient<SignInManager<ApplicationUser>>();
+            
             services.AddScoped<IDbInitializer, DbInitializer>();
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddScoped<IHelloService, HelloService>();
+              services.AddScoped<ITestService, TestService>();
+
+            //services.AddScoped<IHttpClientFactory>();
+           // services.AddHttpClient();
+
+           // services.AddHttpClient<ITestService, ITestService>(
+                //client =>            
+                //client.BaseAddress = new Uri(@"https://localhost:5001/")
+                //);
+              //.AddPolicyHandler(GetRetryPolicy())
+            
+              
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,12 +83,14 @@ namespace BlazorApp.Web
 
             app.UseRouting();
             app.UseCookiePolicy();
-            app.UseAuthentication();
+            app.UseAuthentication();     
+            app.UseAuthorization();
             //Generate EF Core Seed
             dbInitializer.Initialize().Wait();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

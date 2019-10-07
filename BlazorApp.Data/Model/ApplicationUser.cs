@@ -8,19 +8,23 @@ namespace BlazorApp.Data.Models
     {
         [PersonalData]
         [MaxLength(120)]
+        [Required]
         public string FirstName { get; set; }
     
         [MaxLength(120)]
         public string LastName { get; set; }
 
-        [MaxLength(40)]
+      
         public string Avatar { get; set; }
+        //public int Age { get; set; }
+        [MaxLength(40)]
+        public string Sex { get; set; }
 
-     
-             
 
 
-       
+
+
+
 
     }
 }
