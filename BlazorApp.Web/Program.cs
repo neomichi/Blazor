@@ -17,7 +17,7 @@ namespace BlazorApp.Web
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        //services.AddHttpClient<IMyCustomService, MyCustomService>();
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

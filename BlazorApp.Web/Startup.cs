@@ -17,6 +17,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BlazorApp.Data.Services;
 using System.Net.Http;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace BlazorApp.Web
 {
@@ -53,7 +55,7 @@ namespace BlazorApp.Web
               services.AddScoped<ITestService, TestService>();
 
             //services.AddScoped<IHttpClientFactory>();
-           // services.AddHttpClient();
+            services.AddHttpClient();
 
            // services.AddHttpClient<ITestService, ITestService>(
                 //client =>            
@@ -79,7 +81,7 @@ namespace BlazorApp.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+          
 
             app.UseRouting();
             app.UseCookiePolicy();
@@ -94,6 +96,21 @@ namespace BlazorApp.Web
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            app.UseDefaultFiles();
+            // подключаем статические файлы
+            app.UseStaticFiles();
+            // добавляем поддержку каталога node_modules
+            app.UseFileServer(new FileServerOptions()
+            {
+
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "src")),
+                RequestPath = "",
+                EnableDirectoryBrowsing = false
+            });
+
+            
         }
     }
 }

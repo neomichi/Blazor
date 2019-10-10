@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\HelloWorld.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\HelloWorld.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlazorApp.Data\BlazorApp.Data.csproj" />
   </ItemGroup>
 

@@ -24,5 +24,7 @@ namespace BlazorApp.Data.Service
         {
             return "123";  //_httpClient.GetStringAsync("/api/values");
         }
+
+       
     }
 }
