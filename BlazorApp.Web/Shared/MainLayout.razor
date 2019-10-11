@@ -1,8 +1,23 @@
 ﻿@inherits LayoutComponentBase
+@inject IAppStateService appState
 <div class="wrapper" id="wrapper">
     <Header />
-    <SearchPopup/>
-    <Brandcamp/>
+    @if (!string.IsNullOrWhiteSpace(appState.search))
+    {
+        <SearchPopup />
+    }
+    @if (!string.IsNullOrWhiteSpace(appState.breadCrumb.Title))
+    {
+        <BCrumb />
+    }
     @Body
     <Footer />
 </div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        appState.OnChange += StateHasChanged;
+    }
+}

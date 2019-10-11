@@ -1,5 +1,5 @@
 ﻿@page "/about"
-
+@inject IAppStateService appState
 <!-- Start About Area -->
 <div class="page-about about_area bg--white section-padding--lg">
     <div class="container">
@@ -150,6 +150,9 @@
 <!-- End Team Area -->
 
 
-@code {
-
+@code{
+    protected override async Task OnParametersSetAsync()
+    {
+        await appState.SetState<BreadCrumb>(new BreadCrumb("About"));
+    }    
 }

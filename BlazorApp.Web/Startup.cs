@@ -46,24 +46,32 @@ namespace BlazorApp.Web
             //services.AddTransient<UserManager<ApplicationUser>>();
             //services.AddTransient<RoleManager<ApplicationUser>>();
             //services.AddTransient<SignInManager<ApplicationUser>>();
-            
-            services.AddScoped<IDbInitializer, DbInitializer>();
+            //services.AddSingleton<IJsInterop, JsInterop>();
+            //services.AddScoped<IHttpApiClientRequestBuilderFactory, HttpApiClientRequestBuilderFactory>();
+            //services.AddSingleton<IBrowserCookieService, BrowserCookieService>();
 
+
+            services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddSingleton<IAppStateService, AppStateService>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+          
+
+
             services.AddSingleton<WeatherForecastService>();
               services.AddScoped<ITestService, TestService>();
 
             //services.AddScoped<IHttpClientFactory>();
             services.AddHttpClient();
+   
 
            // services.AddHttpClient<ITestService, ITestService>(
-                //client =>            
-                //client.BaseAddress = new Uri(@"https://localhost:5001/")
-                //);
-              //.AddPolicyHandler(GetRetryPolicy())
-            
-              
+           //client =>            
+           //client.BaseAddress = new Uri(@"https://localhost:5001/")
+           //);
+           //.AddPolicyHandler(GetRetryPolicy())
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
