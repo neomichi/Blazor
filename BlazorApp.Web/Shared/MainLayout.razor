@@ -2,22 +2,26 @@
 @inject IAppStateService appState
 <div class="wrapper" id="wrapper">
     <Header />
-    @if (!string.IsNullOrWhiteSpace(appState.search))
-    {
-        <SearchPopup />
-    }
-    @if (!string.IsNullOrWhiteSpace(appState.breadCrumb.Title))
-    {
+    <SearchPopup />
+    <CascadingValue Value="breadCrumb">
         <BCrumb />
-    }
-    @Body
+        @Body
+    </CascadingValue>
     <Footer />
 </div>
-
+@appState;
 @code {
+    BreadCrumb breadCrumb=new BreadCrumb("");
 
     protected override void OnInitialized()
     {
-        appState.OnChange += StateHasChanged;
+        //appState.OnChange += StateHasChanged;
+        appState.OnChange += StartCountdown;
     }
+
+    void StartCountdown()
+    {
+        breadCrumb = appState.breadCrumb;
+    }
+
 }

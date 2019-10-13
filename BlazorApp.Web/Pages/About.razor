@@ -151,8 +151,8 @@
 
 
 @code{
-    protected override async Task OnParametersSetAsync()
+    protected override async Task OnInitializedAsync()
     {
-        await appState.SetState<BreadCrumb>(new BreadCrumb("About"));
-    }    
+        await appState.SetState(new BreadCrumb("About",false));
+    }  
 }

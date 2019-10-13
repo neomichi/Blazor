@@ -1,25 +1,40 @@
 ﻿@inject IAppStateService appState
 <!-- Start Bradcaump area -->
-<div class="ht__bradcaump__area bg-image--3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="bradcaump__inner text-center">
-                    <h2 class="bradcaump-title">@appState.breadCrumb.Title</h2>
-                    <nav class="bradcaump-content">
-                        <a class="breadcrumb_item" href="/">Главная</a>
-                        @foreach (var item in @appState.breadCrumb.Path)
-                        {
-                            <span class="brd-separetor">@item.Key</span>
-                            <span class="breadcrumb_item active">@item.Value</span>
-                        }
-                    </nav>
+
+
+
+@if (breadCrumb != null)
+{
+    <div class="ht__bradcaump__area bg-image--3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>---@breadCrumb.Title---</h4>
+                    <h4> <span bind="@breadCrumb.Title"></span> 
+                    </h4>
+                    <div class="bradcaump__inner text-center">
+                        <h2 class="bradcaump-title">@breadCrumb.Title</h2>
+                        <nav class="bradcaump-content">
+                            <a class="breadcrumb_item" href="/">Главная</a>
+                            @if (breadCrumb.Path!=null && breadCrumb.Path.Any())
+                            {
+                                foreach (var item in breadCrumb.Path)
+                                {
+                                    <span class="brd-separetor">@item.Key</span>
+                                    <span class="breadcrumb_item active">@item.Value</span>
+                                }
+                            }
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End Bradcaump area -->
+    <!-- End Bradcaump area -->
+}
 @code {
-    //как все печально
+ [Parameter] public BreadCrumb breadCrumb { get; set; }
+
+ 
+    
 }

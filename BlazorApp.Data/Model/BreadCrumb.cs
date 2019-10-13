@@ -14,16 +14,27 @@ namespace BlazorApp.Data.Model
         /// </summary>
         public Queue<KeyValuePair<string, string>> Path { get; private set; }
 
-        public BreadCrumb(string title)
+   
+
+        public BreadCrumb(string title,bool Only=true)
         {
-            Title = title; 
-            Path.Enqueue(new KeyValuePair<string, string>("/",title));
+            if (Only)
+            {
+                Title = title;
+            }
+            else
+            {
+                Title = title;
+                Path = new Queue<KeyValuePair<string, string>>();
+                Path.Enqueue(new KeyValuePair<string, string>("/", title));
+            }
         }
 
         public BreadCrumb(string title,List<KeyValuePair<string,string>> listPath )
         {
-            Title = title;            
-            foreach(var path in listPath)
+            Title = title;
+            Path = new Queue<KeyValuePair<string, string>>();
+            foreach (var path in listPath)
             {
                 Path.Enqueue(path);
             }  

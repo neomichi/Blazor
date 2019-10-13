@@ -25,21 +25,22 @@ namespace BlazorApp.Data.Service
                     case "Title": title = state as string; break;
 
                 }
+                await NotifyStateChanged();
             }
             catch (Exception e)
             {
                 throw new Exception();
             }
-            finally
-            {
 
-            }
-            await NotifyStateChanged();
         }
+
+       
 
         private async Task NotifyStateChanged()
         {
             //logloglog
         }
+
+        
     }
 }
