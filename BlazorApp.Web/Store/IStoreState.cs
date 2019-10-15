@@ -1,16 +1,18 @@
 ﻿using System;
 using BlazorApp.Data.Model;
 
-namespace BlazorApp.Data.Service
+namespace BlazorApp.Web.Store
 {
-    public interface IAppStateService
+    public interface IStoreState
     {
         BreadCrumb BreadCrumb { get; }
+        int Counter { get; }
         string Search { get; }
         string Title { get; }
 
         event Action OnChange;
 
-        void SetState<T>(T state);
+        T SetState<T>(T state);
+        void StateChanged();
     }
 }

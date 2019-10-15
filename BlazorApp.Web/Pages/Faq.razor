@@ -1,5 +1,5 @@
 ﻿@page "/faq"
-@inject IAppStateService appState
+
 <!-- Start Faq Area -->
 <section class="wn__faq__area bg--white pt--80 pb--60">
     <div class="container">
@@ -112,8 +112,8 @@
 <!-- End Faq Area -->
 
 @code{
-    protected override async Task OnParametersSetAsync()
+    protected override void OnInitialized()
     {
-        await appState.SetState<BreadCrumb>(new BreadCrumb("Faq"));
+        Dispatcher.Dispatch(new BreadCrumb("Faq",false));
     }
 }

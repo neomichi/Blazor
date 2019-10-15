@@ -5,36 +5,45 @@
 
 @if (breadCrumb != null)
 {
-    <div class="ht__bradcaump__area bg-image--3">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h4>---@breadCrumb.Title---</h4>
-                    <h4> <span bind="@breadCrumb.Title"></span> 
-                    </h4>
-                    <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">@breadCrumb.Title</h2>
-                        <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="/">Главная</a>
-                            @if (breadCrumb.Path!=null && breadCrumb.Path.Any())
+<div class="ht__bradcaump__area bg-image--3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>---@breadCrumb.Title---</h4>
+                <h4>
+                    <span > @breadCrumb.Title</span>
+                </h4>
+                <div class="bradcaump__inner text-center">
+                    <h2 class="bradcaump-title" @bind="@breadCrumb.Title"></h2>
+                    <nav class="bradcaump-content">
+                        <a class="breadcrumb_item" href="/">Главная</a>
+                        @if (breadCrumb.Path != null && breadCrumb.Path.Any())
                             {
                                 foreach (var item in breadCrumb.Path)
                                 {
-                                    <span class="brd-separetor">@item.Key</span>
-                                    <span class="breadcrumb_item active">@item.Value</span>
+                        <span class="brd-separetor">@item.Key</span>
+                        <span class="breadcrumb_item active">@item.Value</span>
                                 }
                             }
-                        </nav>
-                    </div>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Bradcaump area -->
+</div>
+ <!-- End Bradcaump area -->
 }
 @code {
- [Parameter] public BreadCrumb breadCrumb { get; set; }
+    [Parameter]
+    public BreadCrumb breadCrumb {get;set;}
 
- 
-    
+    protected override void OnInitialized()
+    {
+        
+    }
+
+
+
+
+
 }

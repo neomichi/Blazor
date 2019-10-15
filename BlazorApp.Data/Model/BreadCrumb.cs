@@ -1,44 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace BlazorApp.Data.Model
 {
-    [NotMapped]
     public class BreadCrumb
     {
-        public string Title { get; private set; } = "";
-        /// <summary>
-        /// (url.text)
-        /// </summary>
-        public Queue<KeyValuePair<string, string>> Path { get; private set; }
+        public List<KeyValuePair<string, string>> Path { get; private set; }
+        public string Title { get; private set; }
 
-   
 
-        public BreadCrumb(string title,bool Only=true)
+        public BreadCrumb(string title, bool only = true)
         {
-            if (Only)
+            Init(title);
+            if (!only)
             {
-                Title = title;
-            }
-            else
-            {
-                Title = title;
-                Path = new Queue<KeyValuePair<string, string>>();
-                Path.Enqueue(new KeyValuePair<string, string>("/", title));
-            }
+                Path.Add(new KeyValuePair<string, string>(title, title));
+            }        
         }
 
-        public BreadCrumb(string title,List<KeyValuePair<string,string>> listPath )
+        public BreadCrumb(string title, List<KeyValuePair<string, string>> pairs)
+        { 
+            Init(title);
+            foreach(var pair in pairs)
+            {
+                Path.Add(new KeyValuePair<string, string>(pair.Key, pair.Value));
+            }           
+        }
+
+        private void Init(string title="")
         {
             Title = title;
-            Path = new Queue<KeyValuePair<string, string>>();
-            foreach (var path in listPath)
-            {
-                Path.Enqueue(path);
-            }  
+            Path = new List<KeyValuePair<string, string>>();
         }
-
     }
+
+
+
 }

@@ -3,25 +3,25 @@
 <div class="wrapper" id="wrapper">
     <Header />
     <SearchPopup />
-    <CascadingValue Value="breadCrumb">
+    
         <BCrumb />
-        @Body
-    </CascadingValue>
+  
+        @Body 
     <Footer />
 </div>
 @appState;
 @code {
-    BreadCrumb breadCrumb=new BreadCrumb("");
+  
 
     protected override void OnInitialized()
     {
-        //appState.OnChange += StateHasChanged;
-        appState.OnChange += StartCountdown;
+        appState.OnChange += StateHasChanged;
+        appState.OnChange += SomeFunc;
     }
 
-    void StartCountdown()
+    void SomeFunc()
     {
-        breadCrumb = appState.breadCrumb;
+
     }
 
 }

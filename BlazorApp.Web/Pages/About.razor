@@ -1,5 +1,5 @@
 ﻿@page "/about"
-@inject IAppStateService appState
+
 <!-- Start About Area -->
 <div class="page-about about_area bg--white section-padding--lg">
     <div class="container">
@@ -151,8 +151,8 @@
 
 
 @code{
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await appState.SetState(new BreadCrumb("About",false));
-    }  
+        Dispatcher.Dispatch(new BreadCrumb("About",false));
+    }
 }

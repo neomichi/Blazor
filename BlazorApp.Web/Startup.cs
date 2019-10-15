@@ -19,6 +19,8 @@ using BlazorApp.Data.Services;
 using System.Net.Http;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Blazor.Fluxor;
+using BlazorApp.Web.Store;
 
 namespace BlazorApp.Web
 {
@@ -41,7 +43,7 @@ namespace BlazorApp.Web
                 .AddDbContext<MyDbContext>((options => options.UseNpgsql(connectionString)));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<MyDbContext>()                
+                .AddEntityFrameworkStores<MyDbContext>()
                 .AddDefaultTokenProviders();
             //services.AddTransient<UserManager<ApplicationUser>>();
             //services.AddTransient<RoleManager<ApplicationUser>>();
@@ -55,21 +57,21 @@ namespace BlazorApp.Web
             services.AddSingleton<IAppStateService, AppStateService>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-          
 
+            services.AddFluxor(options => options.UseDependencyInjection(typeof(Startup).Assembly));
 
             services.AddSingleton<WeatherForecastService>();
-              services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITestService, TestService>();
 
-            //services.AddScoped<IHttpClientFactory>();
+            services.AddSingleton<IStoreState, StoreState>();
             services.AddHttpClient();
-   
 
-           // services.AddHttpClient<ITestService, ITestService>(
-           //client =>            
-           //client.BaseAddress = new Uri(@"https://localhost:5001/")
-           //);
-           //.AddPolicyHandler(GetRetryPolicy())
+
+            // services.AddHttpClient<ITestService, ITestService>(
+            //client =>            
+            //client.BaseAddress = new Uri(@"https://localhost:5001/")
+            //);
+            //.AddPolicyHandler(GetRetryPolicy())
 
 
         }
@@ -89,11 +91,11 @@ namespace BlazorApp.Web
             }
 
             app.UseHttpsRedirection();
-          
+
 
             app.UseRouting();
             app.UseCookiePolicy();
-            app.UseAuthentication();     
+            app.UseAuthentication();
             app.UseAuthorization();
             //Generate EF Core Seed
             dbInitializer.Initialize().Wait();
@@ -118,7 +120,7 @@ namespace BlazorApp.Web
                 EnableDirectoryBrowsing = false
             });
 
-            
+
         }
     }
 }
